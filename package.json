@@ -24,10 +24,8 @@
   "bugs": "https://github.com/dromru/react-photoswipe-gallery/issues",
   "license": "MIT",
   "scripts": {
-    "build-ts": "rimraf dist && tsc --project tsconfig.build.json",
-    "patch-import": "babel dist --out-dir dist --no-babelrc --plugins=babel-plugin-add-import-extension",
-    "build": "yarn build-ts && yarn patch-import",
-    "start": "yarn build-ts --watch",
+    "build": "rimraf dist && tsc --project tsconfig.build.json",
+    "start": "yarn build --watch",
     "test": "jest",
     "prepublish": "yarn build",
     "type-check": "tsc --project tsconfig.json",
@@ -43,8 +41,6 @@
     "postpack": "pinst --enable"
   },
   "devDependencies": {
-    "@babel/cli": "7.17.10",
-    "@babel/core": "7.18.2",
     "@commitlint/cli": "16.3.0",
     "@commitlint/config-conventional": "16.2.4",
     "@commitlint/prompt": "16.3.0",
@@ -61,9 +57,9 @@
     "@storybook/theming": "6.5.6",
     "@testing-library/dom": "8.13.0",
     "@testing-library/jest-dom": "5.16.4",
-    "@testing-library/react": "13.2.0",
+    "@testing-library/react": "13.3.0",
     "@testing-library/user-event": "14.2.0",
-    "@types/jest": "27.5.1",
+    "@types/jest": "27.5.2",
     "@types/prop-types": "15.7.5",
     "@types/react": "18.0.10",
     "@types/react-dom": "18.0.5",
@@ -72,12 +68,9 @@
     "@typescript-eslint/eslint-plugin": "5.27.0",
     "@typescript-eslint/parser": "5.27.0",
     "@yarnpkg/sdks": "2.6.2",
-    "babel-loader": "8.2.5",
-    "babel-plugin-add-import-extension": "1.6.0",
-    "babel-plugin-named-exports-order": "0.0.2",
     "commitizen": "4.2.4",
     "core-js": "3.22.7",
-    "eslint": "8.16.0",
+    "eslint": "8.17.0",
     "eslint-config-airbnb": "19.0.4",
     "eslint-config-prettier": "8.5.0",
     "eslint-import-resolver-node": "0.3.6",
@@ -101,7 +94,7 @@
     "storybook-dark-mode": "1.1.0",
     "ts-jest": "27.1.5",
     "ts-loader": "9.3.0",
-    "typescript": "4.7.2",
+    "typescript": "4.7.3",
     "util": "0.12.4",
     "webpack": "5.72.1"
   },
@@ -159,14 +152,18 @@
     ]
   },
   "jest": {
-    "preset": "ts-jest",
+    "preset": "ts-jest/presets/default-esm",
+    "extensionsToTreatAsEsm": [
+      ".ts"
+    ],
     "collectCoverage": true,
     "globals": {
       "ts-jest": {
-        "tsconfig": {
-          "esModuleInterop": true
-        }
+        "useESM": true
       }
+    },
+    "moduleNameMapper": {
+      "^(\\.{1,2}/.*)\\.js$": "$1"
     }
   },
   "packageManager": "yarn@3.2.1"
